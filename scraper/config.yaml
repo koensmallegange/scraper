@@ -1,7 +1,0 @@
-url : https://www.vanderlinden.nl/woning-huren/
-email:
-  from: 'koen.smallegange@gmail.com',
-  to: 'koen.smallegange@live.nl',
-  smtp_server: 'smtp.gmail.com',
-  smtp_port: 587,
-  password: 'fdvg fllu pugr imnm',
