@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "scraper"
+version = "0.1.0"
+description = ""
+authors = ["Koen Smallegange <ksm008@asr.nl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+beautifulsoup4 = "^4.12.3"
+certifi = "^2024.7.4"
+charset-normalizer = "^3.3.2"
+idna = "^3.7"
+numpy = "^2.0.1"
+pandas = "^2.2.2"
+python-dateutil = "^2.9.0.post0"
+pytz = "^2024.1"
+requests = "^2.32.3"
+six = "^1.16.0"
+soupsieve = "^2.6"
+tzdata = "^2024.1"
+urllib3 = "^2.2.2"
+bs4 = "^0.0.2"
+
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
