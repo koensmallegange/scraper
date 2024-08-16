@@ -21,6 +21,7 @@ soupsieve = "^2.6"
 tzdata = "^2024.1"
 urllib3 = "^2.2.2"
 bs4 = "^0.0.2"
+pyyaml = "^6.0.2"
 
 
 

@@ -29,7 +29,7 @@ class RealEstateController:
         new_houses = self.model.get_new_houses(self.old_houses)
         if new_houses:
             self.send_email(new_houses)
-            self.update_existing_listings([house['address'] for house in new_houses])
+            self.update_existing_listings([house['Listing'] for house in new_houses])
         else:
             print("No new houses found.")
 
@@ -37,16 +37,16 @@ class RealEstateController:
         msg = MIMEMultipart()
         msg['From'] = self.email_credentials['from']
         msg['To'] = self.email_credentials['to']
-        msg['Subject'] = 'New Houses Available'
+        msg['Subject'] = 'Nieuwe woningen op vd Linden'
 
-        body = "The following new houses have been listed:\n\n"
+        body = "De volgende advertenties zijn toegevoegd:\n\n"
         for house in new_houses:
-            body += f"{house['address']}, {house['price']}, {house['url']}\n"
+            body += f"{house['Listing']}\n"
         msg.attach(MIMEText(body, 'plain'))
-
         server = smtplib.SMTP(self.email_credentials['smtp_server'], self.email_credentials['smtp_port'])
         server.starttls()
         server.login(self.email_credentials['from'], self.email_credentials['password'])
         text = msg.as_string()
         server.sendmail(self.email_credentials['from'], self.email_credentials['to'], text)
         server.quit()
+       

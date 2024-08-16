@@ -19,32 +19,28 @@ class RealEstateModel:
         listings = soup.select("div.zoekresultaat")
         new_houses = []
         for house in listings:
-            location = house.select_one("div.objectgegevens").get_text(strip=True)
-            address = house.select_one("div.objectgegevens").get_text(strip=True)
-
-            # Check if the location is in Amsterdam
-            if "Amsterdam" not in location:
+            # Fill location and adress if they exis otherwise give None
+            info_url = house.select_one("div.over a")
+            object_data = house.select_one("div.objectgegevens").get_text(strip=True) if house.select_one("div.objectgegevens") else 'Unknown'
+            location = house.select_one("div.objectgegevens").get_text(strip=True) if house.select_one("div.objectgegevens") else 'Unknown'
+            address = house.select_one("div.adresgegevens").get_text(strip=True) if house.select_one("div.adresgegevens") else 'Unknown' 
+            # check if 'amsterdam' is in the url
+            if 'Amsterdam' not in info_url['href']:
                 continue
 
             house_data = {
-                'address': address,
-                'price': None,
-                'url': None
+                'Listing': object_data,
+                'URL': None,
             }
-
-            # Get the price
-            price_tag = house.select_one('div.objectgegevens span.vraagprijs')
-            if price_tag:
-                house_data['price'] = price_tag.get_text(strip=True)
-
+        
             # Get the 'Meer informatie' URL
             info_url = house.select_one("div.over a")
             if info_url:
-                house_data['url'] = info_url['href']
+                house_data['URL'] = info_url
 
             new_houses.append(house_data)
-
+    
         self.houses = new_houses
 
     def get_new_houses(self, old_houses):
-        return [house for house in self.houses if house['address'] not in old_houses]
+        return [house for house in self.houses if house['Listing'] not in old_houses]
