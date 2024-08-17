@@ -1,12 +1,12 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from model import RealEstateModel
+from model import vdLindenModel
 import pandas as pd
 
 class RealEstateController:
     def __init__(self, model, email_credentials):
-        self.model = model
+        self.houses = model
         self.email_credentials = email_credentials
         self.old_houses = self.read_existing_listings()
 
@@ -25,8 +25,8 @@ class RealEstateController:
                 file.write(f"{address}\n")
 
     def update_data(self):
-        self.model.fetch_data()
-        new_houses = self.model.get_new_houses(self.old_houses)
+        self.houses.fetch_data()
+        new_houses = self.houses.get_new_houses(self.old_houses)
         if new_houses:
             self.send_email(new_houses)
             self.update_existing_listings([house['Listing'] for house in new_houses])
@@ -37,7 +37,7 @@ class RealEstateController:
         msg = MIMEMultipart()
         msg['From'] = self.email_credentials['from']
         msg['To'] = self.email_credentials['to']
-        msg['Subject'] = 'Nieuwe woningen op vd Linden'
+        msg['Subject'] = 'Nieuwe woningen gevonden'
 
         body = "De volgende advertenties zijn toegevoegd:\n\n"
         for house in new_houses:

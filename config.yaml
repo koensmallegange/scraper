@@ -1,4 +1,6 @@
-url : https://www.vanderlinden.nl/woning-huren/
+urls: 
+  van der linden: https://www.vanderlinden.nl/woning-huren/
+  vb en t: https://vbtverhuurmakelaars.nl/woningen
 email:
   from: 'koen.smallegange@gmail.com'
   to: 'koen.smallegange@live.nl'

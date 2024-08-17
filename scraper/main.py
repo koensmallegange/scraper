@@ -1,7 +1,8 @@
 from controller import RealEstateController
-from model import RealEstateModel
+from model import vdLindenModel, vbtModel
 import yaml
 import time
+import sys
 
 # Load the config.yaml file
 config_path = 'config.yaml'  
@@ -16,7 +17,10 @@ with open(secrets_path, 'r') as file:
     secrets = yaml.safe_load(file)
 
 # Extract the URL and email credentials from the config and secrets
-url = config['url']
+vdl_url = config['urls']['van der linden']
+vbt_url = config['urls']['vb en t']
+
+# Extract email credentials
 email_credentials = {
     'from': config['email']['from'],
     'to': config['email']['to'],
@@ -28,9 +32,17 @@ email_credentials = {
 # Create the Model and run it every five minutes
 try: 
     while True:
-        houses = RealEstateModel(url)
-        controller = RealEstateController(houses, email_credentials)
-        controller.update_data()
+        # Update the data for Van der Linden
+        vdl_houses = vdLindenModel(vdl_url)
+        vdl_controller = RealEstateController(vdl_houses, email_credentials)
+        vdl_controller.update_data()
+
+        # Update the data for VB&T
+        vbt_houses = vbtModel(vbt_url)
+        vbt_controller = RealEstateController(vbt_houses, email_credentials)
+        vbt_controller.update_data()
+
+        # Wait for 5 minutes
         time.sleep(300)
 except KeyboardInterrupt:
     print("Exiting the program...")
