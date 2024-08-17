@@ -1,6 +1,7 @@
 from controller import RealEstateController
 from model import RealEstateModel
 import yaml
+import time
 
 # Load the config.yaml file
 config_path = 'config.yaml'  
@@ -24,7 +25,13 @@ email_credentials = {
     'password': secrets['email']['password'],
 }
 
-# Create the Model
-houses = RealEstateModel(url)
-controller = RealEstateController(houses, email_credentials)
-controller.update_data()
+# Create the Model and run it every five minutes
+try: 
+    while True:
+        houses = RealEstateModel(url)
+        controller = RealEstateController(houses, email_credentials)
+        controller.update_data()
+        time.sleep(300)
+except KeyboardInterrupt:
+    print("Exiting the program...")
+
