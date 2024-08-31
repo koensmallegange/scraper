@@ -1,7 +1,7 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from model import vdLindenModel
+from scraper.model import vdLindenModel
 import pandas as pd
 
 class RealEstateController:

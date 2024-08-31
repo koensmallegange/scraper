@@ -6,3 +6,6 @@ email:
   to: 'koen.smallegange@live.nl'
   smtp_server: 'smtp.gmail.com'
   smtp_port: 587
+general:
+  city: 'Rotterdam'
+  time_interval: 60
